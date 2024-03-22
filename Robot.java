@@ -5,11 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.AutoFoward;
 import edu.wpi.first.cameraserver.CameraServer;
 
 
@@ -22,10 +19,6 @@ import edu.wpi.first.cameraserver.CameraServer;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private static final String kDefaultAuto = "Drive Forward";
-  private static final String kCustomAuto = "Shoot and Drive Back";
-  private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -37,9 +30,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     CameraServer.startAutomaticCapture();
     m_robotContainer = new RobotContainer();
-    m_chooser.setDefaultOption("Drive Forward", kDefaultAuto);
-    m_chooser.addOption("Shoot and Drive Back", kCustomAuto);
-    SmartDashboard.putData("Autonomous Options", m_chooser);
+    
   }
 
   /**
@@ -69,31 +60,17 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_autoSelected = m_chooser.getSelected();
-    System.out.println("Auto Selected: " + m_autoSelected);
-
+    
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-
-    m_autonomousCommand = m_robotContainer.getAutonomousCommandTwo();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
     }
-  }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        break;
-      case kDefaultAuto:
-      default:
-        break;
-    }
+    
   }
   
 
@@ -105,8 +82,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
-    }
-  }
+  }}
 
   /** This function is called periodically during operator control. */
   @Override
