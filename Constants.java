@@ -31,6 +31,16 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
   }
 
+  public static class ClimberConstants {
+    public static final int kClimberID = 7;
+    public static final int kCurrentLimit = 50;
+  }
+
+  public static class GroundIntakeConstants {
+    public static final int kGroundIntakeID = 8;
+    public static final int kGroundIntakeSpeed = 1;
+}
+
   public static class LauncherConstants {
     // PWM ports/CAN IDs for motor controllers 
     public static final int kFeederID = 5;
